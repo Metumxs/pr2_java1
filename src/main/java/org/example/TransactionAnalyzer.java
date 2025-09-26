@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 
-
 public class TransactionAnalyzer
 {
     private List<Transaction> transactions;
