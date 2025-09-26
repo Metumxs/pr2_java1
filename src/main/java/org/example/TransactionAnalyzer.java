@@ -1,9 +1,8 @@
 package org.example;
 
-import java.util.List;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 
@@ -46,6 +45,69 @@ public abstract class TransactionAnalyzer
                 .sorted(Comparator.comparing(Transaction::getAmount))
                 .limit(10)
                 .collect(Collectors.toList());
+    }
+
+    public static Optional<Transaction> findMaxExpense(List<Transaction> transactions, String monthYear)
+    {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        return transactions.stream()
+                .filter(t -> t.getAmount() < 0) // тільки витрати
+                .filter(t -> {
+                    LocalDate date = LocalDate.parse(t.getDate(), dateFormatter);
+                    return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
+                })
+                .min(Comparator.comparing(Transaction::getAmount)); // мінімальне число = найбільша витрата
+    }
+
+    public static Optional<Transaction> findMinExpense(List<Transaction> transactions, String monthYear)
+    {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        return transactions.stream()
+                .filter(t -> t.getAmount() < 0)
+                .filter(t -> {
+                    LocalDate date = LocalDate.parse(t.getDate(), dateFormatter);
+                    return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
+                })
+                .max(Comparator.comparing(Transaction::getAmount)); // найближче до 0 = найменша витрата
+    }
+
+    // Повертає сумарні витрати по категоріях
+    public static Map<String, Double> calculateExpensesByCategory(List<Transaction> transactions)
+    {
+        Map<String, Double> categorySums = new HashMap<>();
+
+        for (Transaction t : transactions)
+        {
+            if (t.getAmount() < 0)
+            {
+                String category = t.getDescription();
+                double amount = Math.abs(t.getAmount());
+
+                categorySums.put(category, categorySums.getOrDefault(category, 0.0) + amount);
+            }
+        }
+        return categorySums;
+    }
+
+    // Повертає сумарні витрати по місяцях
+    public static Map<String, Double> calculateExpensesByMonth(List<Transaction> transactions)
+    {
+        Map<String, Double> monthSums = new HashMap<>();
+
+        for (Transaction t : transactions)
+        {
+            if (t.getAmount() < 0)
+            {
+                String date = t.getDate();         // якщо "05-02-2024"
+                String monthYear = date.substring(3); // буде "02-2024"
+
+                double amount = Math.abs(t.getAmount());
+                monthSums.put(monthYear, monthSums.getOrDefault(monthYear, 0.0) + amount);
+            }
+        }
+        return monthSums;
     }
 }
 

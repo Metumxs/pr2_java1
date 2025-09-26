@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -23,6 +24,12 @@ public class Main {
         TransactionReportGenerator.printTransactionsCountByMonth(monthYear, transactionsCount);
 
         List<Transaction> topExpenses = TransactionAnalyzer.findTopExpenses(transactions);
-        TransactionReportGenerator.printTopTransactionsExpensesReport(topExpenses);
+
+        Map<String, Double> expensesByCategory = TransactionAnalyzer.calculateExpensesByCategory(transactions);
+        TransactionReportGenerator.printExpensesByCategory(expensesByCategory);
+
+// По місяцях
+        Map<String, Double> expensesByMonth = TransactionAnalyzer.calculateExpensesByMonth(transactions);
+        TransactionReportGenerator.printExpensesByMonth(expensesByMonth);
     }
 }
