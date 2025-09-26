@@ -3,6 +3,7 @@ package org.example;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 public abstract class TransactionReportGenerator
@@ -23,6 +24,26 @@ public abstract class TransactionReportGenerator
         for (Transaction transactionExpense : topTransactionsExpenses)
         {
             System.out.println(transactionExpense.getDescription() + ": " + transactionExpense.getAmount());
+        }
+    }
+
+    public static void printMaxExpenseReport(String monthYear, Optional<Transaction> maxExpense) {
+        System.out.println("\n=== Найбільша витрата за " + monthYear + " ===");
+        if (maxExpense.isPresent()) {
+            Transaction t = maxExpense.get();
+            System.out.println(t.getDate() + " | " + t.getDescription() + " | " + t.getAmount());
+        } else {
+            System.out.println("Немає витрат у цей період.");
+        }
+    }
+
+    public static void printMinExpenseReport(String monthYear, Optional<Transaction> minExpense) {
+        System.out.println("\n=== Найменша витрата за " + monthYear + " ===");
+        if (minExpense.isPresent()) {
+            Transaction t = minExpense.get();
+            System.out.println(t.getDate() + " | " + t.getDescription() + " | " + t.getAmount());
+        } else {
+            System.out.println("Немає витрат у цей період.");
         }
     }
 
@@ -51,6 +72,4 @@ public abstract class TransactionReportGenerator
             System.out.println(month + " : " + amount + " грн " + "*".repeat(stars));
         }
     }
-
 }
-
