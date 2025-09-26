@@ -7,19 +7,12 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 
-public class TransactionAnalyzer
+public abstract class TransactionAnalyzer
 {
-    private List<Transaction> transactions;
-    private DateTimeFormatter dateFormatter;
-
-    public TransactionAnalyzer(List<Transaction> transactions)
-    {
-        this.transactions = transactions;
-        this.dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    }
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // Метод для розрахунку загального балансу
-    public double calculateTotalBalance()
+    public static double calculateTotalBalance(List<Transaction> transactions)
     {
         double balance = 0;
         for (Transaction transaction : transactions)
@@ -30,7 +23,7 @@ public class TransactionAnalyzer
     }
 
     // Метод для підрахунку транзакцій за конкретний місяць і рік
-    public int countTransactionsByMonth(String monthYear)
+    public static int countTransactionsByMonth(List<Transaction> transactions, String monthYear)
     {
         int count = 0;
         for (Transaction transaction : transactions)
@@ -45,15 +38,15 @@ public class TransactionAnalyzer
         return count;
     }
 
-    public List<Transaction> findTopExpenses() {
+    // Метод для пошуку топ-10 витрат
+    public static List<Transaction> findTopExpenses(List<Transaction> transactions)
+    {
         return transactions.stream()
-                .filter(t -> t.getAmount() < 0) // Вибірка лише витрат (від'ємні значення)
-                .sorted(Comparator.comparing(Transaction::getAmount)) // Сортування за сумою
-                .limit(10) // Обмеження результату першими 10 записами
-                .collect(Collectors.toList()); // Збір результату в список
+                .filter(t -> t.getAmount() < 0)
+                .sorted(Comparator.comparing(Transaction::getAmount))
+                .limit(10)
+                .collect(Collectors.toList());
     }
-
-
-    // Тут будуть інші методи для аналізу транзакцій
 }
+
 

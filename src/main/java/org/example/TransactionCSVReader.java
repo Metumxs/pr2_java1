@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TransactionCSVReader
+public abstract class TransactionCSVReader
 {
-    public List<Transaction> readTransactions(String filePath)
+    public static List<Transaction> readTransactions(String filePath)
     {
         List<Transaction> transactions = new ArrayList<>();
         try

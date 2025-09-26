@@ -3,21 +3,21 @@ package org.example;
 import java.util.List;
 
 
-public class TransactionReportGenerator
+public abstract class TransactionReportGenerator
 {
-    public void printBalanceReport(double totalBalance)
+    public static void printBalanceReport(double totalBalance)
     {
-        System.out.println("Загальний баланс: " + totalBalance);
+        System.out.println("\nЗагальний баланс: " + totalBalance);
     }
 
-    public void printTransactionsCountByMonth(String monthYear, int count)
+    public static void printTransactionsCountByMonth(String monthYear, int count)
     {
-        System.out.println("Кількість транзакцій за " + monthYear + ": " + count);
+        System.out.println("\nКількість транзакцій за " + monthYear + ": " + count);
     }
 
-    public void printTopExpensesReport(List<Transaction> topTransactionsExpenses)
+    public static void printTopTransactionsExpensesReport(List<Transaction> topTransactionsExpenses)
     {
-        System.out.println("10 найбільших витрат:");
+        System.out.println("\n10 найбільших витрат:");
         for (Transaction transactionExpense : topTransactionsExpenses)
         {
             System.out.println(transactionExpense.getDescription() + ": " + transactionExpense.getAmount());
