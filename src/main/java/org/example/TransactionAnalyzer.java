@@ -31,7 +31,7 @@ public abstract class TransactionAnalyzer
             String transactionMonthYear = date.format(DateTimeFormatter.ofPattern("MM-yyyy"));
             if (transactionMonthYear.equals(monthYear))
             {
-                count++;
+                ++count;
             }
         }
         return count;
@@ -52,7 +52,7 @@ public abstract class TransactionAnalyzer
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         return transactions.stream()
-                .filter(t -> t.getAmount() < 0) // тільки витрати
+                .filter(t -> t.getAmount() < 0)
                 .filter(t -> {
                     LocalDate date = LocalDate.parse(t.getDate(), dateFormatter);
                     return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);

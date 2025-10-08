@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +17,7 @@ public abstract class TransactionReportGenerator
         System.out.println("\nКількість транзакцій за " + monthYear + ": " + count);
     }
 
-    public static void printTopTransactionsExpensesReport(List<Transaction> topTransactionsExpenses)
+    public static void printTopExpensesReport(List<Transaction> topTransactionsExpenses)
     {
         System.out.println("\n10 найбільших витрат:");
         for (Transaction transactionExpense : topTransactionsExpenses)
@@ -27,22 +26,30 @@ public abstract class TransactionReportGenerator
         }
     }
 
-    public static void printMaxExpenseReport(String monthYear, Optional<Transaction> maxExpense) {
+    public static void printMaxExpenseReport(String monthYear, Optional<Transaction> maxExpense)
+    {
         System.out.println("\n=== Найбільша витрата за " + monthYear + " ===");
-        if (maxExpense.isPresent()) {
+        if (maxExpense.isPresent())
+        {
             Transaction t = maxExpense.get();
             System.out.println(t.getDate() + " | " + t.getDescription() + " | " + t.getAmount());
-        } else {
+        }
+        else
+        {
             System.out.println("Немає витрат у цей період.");
         }
     }
 
-    public static void printMinExpenseReport(String monthYear, Optional<Transaction> minExpense) {
+    public static void printMinExpenseReport(String monthYear, Optional<Transaction> minExpense)
+    {
         System.out.println("\n=== Найменша витрата за " + monthYear + " ===");
-        if (minExpense.isPresent()) {
+        if (minExpense.isPresent())
+        {
             Transaction t = minExpense.get();
             System.out.println(t.getDate() + " | " + t.getDescription() + " | " + t.getAmount());
-        } else {
+        }
+        else
+        {
             System.out.println("Немає витрат у цей період.");
         }
     }
@@ -55,8 +62,8 @@ public abstract class TransactionReportGenerator
         for (String category : expensesByCategory.keySet())
         {
             double amount = expensesByCategory.get(category);
-            int stars = (int) (amount / 1000);
-            System.out.println(category + " : " + amount + " грн " + "*".repeat(stars));
+            int starsCount = (int) (amount / 1000);
+            System.out.println(category + " : " + amount + " грн " + "*".repeat(starsCount));
         }
     }
 
@@ -68,8 +75,8 @@ public abstract class TransactionReportGenerator
         for (String month : expensesByMonth.keySet())
         {
             double amount = expensesByMonth.get(month);
-            int stars = (int) (amount / 1000);
-            System.out.println(month + " : " + amount + " грн " + "*".repeat(stars));
+            int starsCount = (int) (amount / 1000);
+            System.out.println(month + " : " + amount + " грн " + "*".repeat(starsCount));
         }
     }
 }

@@ -26,6 +26,7 @@ public class Main {
         TransactionReportGenerator.printTransactionsCountByMonth(monthYearTest, transactionsCount);
 
         List<Transaction> topExpenses = TransactionAnalyzer.findTopExpenses(transactions);
+        TransactionReportGenerator.printTopExpensesReport(topExpenses);
 
         Map<String, Double> expensesByCategory = TransactionAnalyzer.calculateExpensesByCategory(transactions);
         TransactionReportGenerator.printExpensesByCategory(expensesByCategory);

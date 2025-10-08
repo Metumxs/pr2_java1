@@ -23,7 +23,7 @@ public class TransactionCSVReaderTest
             fw.write(csvData);
         }
 
-        // Викликаємо наш метод
+        // Викликаємо відповідний метод
         List<Transaction> transactions = TransactionCSVReader.readTransactions(tempFile.toURI().toURL().toString());
 
         // Перевіряємо що зчиталося правильно
