@@ -17,12 +17,12 @@ public abstract class TransactionReportGenerator
         System.out.println("\nКількість транзакцій за " + monthYear + ": " + count);
     }
 
-    public static void printTopExpensesReport(List<Transaction> topTransactionsExpenses)
+    public static void printTopExpensesReport(List<Transaction> topExpenses)
     {
         System.out.println("\n10 найбільших витрат:");
-        for (Transaction transactionExpense : topTransactionsExpenses)
+        for (Transaction expense : topExpenses)
         {
-            System.out.println(transactionExpense.getDescription() + ": " + transactionExpense.getAmount());
+            System.out.println(expense.getDescription() + ": " + expense.getAmount());
         }
     }
 
