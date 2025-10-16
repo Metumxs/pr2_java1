@@ -62,7 +62,7 @@ public abstract class TransactionReportGenerator
         for (String category : expensesByCategory.keySet())
         {
             double amount = expensesByCategory.get(category);
-            int starsCount = (int) (amount / 1000);
+            int starsCount = amount < 1000 ? 1 : (int) (amount / 1000);
             System.out.println(category + " : " + amount + " грн " + "*".repeat(starsCount));
         }
     }

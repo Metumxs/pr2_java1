@@ -3,19 +3,16 @@ package org.example;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Тести для перевірки методу, що знаходить 10 найбільших витрат.
- */
+
 class TransactionAnalyzerTest
 {
     @Test
     @DisplayName("Повертає 10 найбільших витрат, якщо їх більше 10")
-    public void testfindTopExpenses_WhenMoreThan10ExpensesExist()
+    public void testFindTopExpenses_WhenMoreThan10ExpensesExist()
     {
         // Створення тестових даних (12 витрат і 1 дохід)
         List<Transaction> transactions = Arrays.asList(
@@ -52,7 +49,7 @@ class TransactionAnalyzerTest
 
     @Test
     @DisplayName("Повертає всі витрати, якщо їх менше 10")
-    public void testfindTopExpenses_WhenLessThan10ExpensesExist()
+    public void testFindTopExpenses_WhenLessThan10ExpensesExist()
     {
         List<Transaction> transactions = Arrays.asList(
                 new Transaction("2024-01-01", -500, "Оренда"),
@@ -75,7 +72,7 @@ class TransactionAnalyzerTest
 
     @Test
     @DisplayName("Повертає порожній список, якщо витрат немає")
-    public void testfindTopExpenses_WhenNoExpensesExist()
+    public void testFindTopExpenses_WhenNoExpensesExist()
     {
         // Створення даних без витрат
         List<Transaction> transactions = Arrays.asList(
@@ -92,7 +89,7 @@ class TransactionAnalyzerTest
 
     @Test
     @DisplayName("Повертає порожній список для порожнього вхідного списку")
-    public void testfindTopExpenses_WhenTransactionListIsEmpty()
+    public void testFindTopExpenses_WhenTransactionListIsEmpty()
     {
         // Виклик методу з порожнім списком
         List<Transaction> topExpenses = TransactionAnalyzer.findTopExpenses(Collections.emptyList());

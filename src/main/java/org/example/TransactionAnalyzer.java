@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public abstract class TransactionAnalyzer
 {
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_MAIN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // Метод для розрахунку загального балансу
     public static double calculateTotalBalance(List<Transaction> transactions)
@@ -27,7 +27,7 @@ public abstract class TransactionAnalyzer
         int count = 0;
         for (Transaction transaction : transactions)
         {
-            LocalDate date = LocalDate.parse(transaction.getDate(), dateFormatter);
+            LocalDate date = LocalDate.parse(transaction.getDate(), DATE_TIME_FORMATTER_MAIN);
             String transactionMonthYear = date.format(DateTimeFormatter.ofPattern("MM-yyyy"));
             if (transactionMonthYear.equals(monthYear))
             {
@@ -49,12 +49,10 @@ public abstract class TransactionAnalyzer
 
     public static Optional<Transaction> findMaxExpense(List<Transaction> transactions, String monthYear)
     {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
         return transactions.stream()
                 .filter(t -> t.getAmount() < 0)
                 .filter(t -> {
-                    LocalDate date = LocalDate.parse(t.getDate(), dateFormatter);
+                    LocalDate date = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
                     return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
                 })
                 .min(Comparator.comparing(Transaction::getAmount)); // мінімальне число = найбільша витрата
@@ -62,12 +60,10 @@ public abstract class TransactionAnalyzer
 
     public static Optional<Transaction> findMinExpense(List<Transaction> transactions, String monthYear)
     {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
         return transactions.stream()
                 .filter(t -> t.getAmount() < 0)
                 .filter(t -> {
-                    LocalDate date = LocalDate.parse(t.getDate(), dateFormatter);
+                    LocalDate date = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
                     return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
                 })
                 .max(Comparator.comparing(Transaction::getAmount)); // найближче до 0 = найменша витрата
@@ -100,8 +96,8 @@ public abstract class TransactionAnalyzer
         {
             if (t.getAmount() < 0)
             {
-                String date = t.getDate();         // якщо "05-02-2024"
-                String monthYear = date.substring(3); // буде "02-2024"
+                LocalDate date = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
+                String monthYear = date.format(DateTimeFormatter.ofPattern("MM-yyyy"));
 
                 double amount = Math.abs(t.getAmount());
                 monthSums.put(monthYear, monthSums.getOrDefault(monthYear, 0.0) + amount);
