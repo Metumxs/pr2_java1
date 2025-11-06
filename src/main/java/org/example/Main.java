@@ -5,10 +5,13 @@ import java.util.Map;
 import java.util.Optional;
 
 
-public class Main {
+public class Main
+{
     public static void main(String[] args)
     {
         String monthYearTest = "01-2024";
+        String startDateStr = "01-01-2024";
+        String endDateStr = "31-01-2024";
 
         String filePath = "https://informer.com.ua/dut/java/pr2.csv";
 
@@ -33,9 +36,9 @@ public class Main {
         Map<String, Double> expensesByMonth = TransactionAnalyzer.calculateExpensesByMonth(transactions);
         TransactionReportGenerator.printExpensesByMonth(expensesByMonth);
 
-        Optional<Transaction> maxExpense = TransactionAnalyzer.findMaxExpense(transactions, monthYearTest);
-        TransactionReportGenerator.printMaxExpenseReport(monthYearTest, maxExpense);
-        Optional<Transaction> minExpense = TransactionAnalyzer.findMinExpense(transactions, monthYearTest);
-        TransactionReportGenerator.printMinExpenseReport(monthYearTest, minExpense);
+        Optional<Transaction> maxExpense = TransactionAnalyzer.findMaxExpenseInRange(transactions, startDateStr, endDateStr);
+        TransactionReportGenerator.printMaxExpenseReportInRange(startDateStr, endDateStr, maxExpense);
+        Optional<Transaction> minExpense = TransactionAnalyzer.findMinExpenseInRange(transactions, startDateStr, endDateStr);
+        TransactionReportGenerator.printMinExpenseReportInRange(startDateStr, endDateStr, minExpense);
     }
 }

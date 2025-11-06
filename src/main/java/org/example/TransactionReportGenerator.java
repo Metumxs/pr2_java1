@@ -26,9 +26,11 @@ public abstract class TransactionReportGenerator
         }
     }
 
-    public static void printMaxExpenseReport(String monthYear, Optional<Transaction> maxExpense)
+    // ЗАМІСТЬ printMaxExpenseReportInRange(LocalDate startDate, ...)
+    public static void printMaxExpenseReportInRange(String startDate, String endDate, Optional<Transaction> maxExpense)
     {
-        System.out.println("\n=== Найбільша витрата за " + monthYear + " ===");
+        // Знову використовуємо String у заголовку
+        System.out.println("\n=== Найбільша витрата за період з " + startDate + " по " + endDate + " ===");
         if (maxExpense.isPresent())
         {
             Transaction t = maxExpense.get();
@@ -40,9 +42,11 @@ public abstract class TransactionReportGenerator
         }
     }
 
-    public static void printMinExpenseReport(String monthYear, Optional<Transaction> minExpense)
+    // ЗАМІСТЬ printMinExpenseReportInRange(LocalDate startDate, ...)
+    public static void printMinExpenseReportInRange(String startDate, String endDate, Optional<Transaction> minExpense)
     {
-        System.out.println("\n=== Найменша витрата за " + monthYear + " ===");
+        // Знову використовуємо String у заголовку
+        System.out.println("\n=== Найменша витрата за період з " + startDate + " по " + endDate + " ===");
         if (minExpense.isPresent())
         {
             Transaction t = minExpense.get();

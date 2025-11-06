@@ -47,24 +47,32 @@ public abstract class TransactionAnalyzer
                 .collect(Collectors.toList());
     }
 
-    public static Optional<Transaction> findMaxExpense(List<Transaction> transactions, String monthYear)
+    public static Optional<Transaction> findMaxExpenseInRange(List<Transaction> transactions, String startDateStr, String endDateStr)
     {
+        LocalDate startDate = LocalDate.parse(startDateStr, DATE_TIME_FORMATTER_MAIN);
+        LocalDate endDate = LocalDate.parse(endDateStr, DATE_TIME_FORMATTER_MAIN);
+
         return transactions.stream()
                 .filter(t -> t.getAmount() < 0)
                 .filter(t -> {
-                    LocalDate date = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
-                    return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
+                    LocalDate transactionDate = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
+
+                    return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
                 })
                 .min(Comparator.comparing(Transaction::getAmount)); // мінімальне число = найбільша витрата
     }
 
-    public static Optional<Transaction> findMinExpense(List<Transaction> transactions, String monthYear)
+    public static Optional<Transaction> findMinExpenseInRange(List<Transaction> transactions, String startDateStr, String endDateStr)
     {
+        LocalDate startDate = LocalDate.parse(startDateStr, DATE_TIME_FORMATTER_MAIN);
+        LocalDate endDate = LocalDate.parse(endDateStr, DATE_TIME_FORMATTER_MAIN);
+
         return transactions.stream()
                 .filter(t -> t.getAmount() < 0)
                 .filter(t -> {
-                    LocalDate date = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
-                    return date.format(DateTimeFormatter.ofPattern("MM-yyyy")).equals(monthYear);
+                    LocalDate transactionDate = LocalDate.parse(t.getDate(), DATE_TIME_FORMATTER_MAIN);
+
+                    return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
                 })
                 .max(Comparator.comparing(Transaction::getAmount)); // найближче до 0 = найменша витрата
     }
